@@ -5,7 +5,7 @@ export default class extends Controller {
 
     onTelegramAuth = (user) => {
         console.log(this)
-        this.tgUserTarget.innerText = 'Post as ' + user.first_name + ' ' + user.last_name + ' (' + user.id + (user.username ? ', @' + user.username : '') + ')'
+        this.tgUserTarget.value = 'Post as ' + user.first_name + ' ' + user.last_name + ' (' + user.id + (user.username ? ', @' + user.username : '') + ')'
     }
 
     connect() {
