@@ -1,0 +1,52 @@
+<div class="form">
+    <%= form_with url: "/command/sendMediaGroup",  class: "row g-3" do |form| %>
+        <div class="mb-3">
+            <%= form.label :uploads, "Фото", class: "form-label" %>
+            <%= form.file_field :uploads, multiple: true, class: "form-control" %>
+        </div>
+
+        <div class="mb-3">
+            <%= form.label :text, "Текст обьявления", class: "form-label" %>
+            <%= form.text_area :text, rows: 3, class: "form-control" %>
+        </div>
+
+        <div class="mb-3" data-controller="dadata">
+            <%= form.label :city, "Город", class: "form-label" %>
+            <%= form.text_field :city, placeholder: "Введите для поиска...", list: "citiesListOptions", data: {action: "dadata#request"}, class: "form-control" %>
+            <datalist id="citiesListOptions" data-dadata-target="citiesDataList"></datalist>
+        </div>
+
+        <div class="mb-3">
+            <%= form.label :goods, "Товары", class: "form-label" %>
+            <div class="input-group">
+                <span class="input-group-text">1</span>
+                <%= form.text_field :category, aria: {label: "Категория"}, placeholder: "Категория", list: "categoriesList", class: "form-control" %>
+                <datalist id="categoriesList" data-dadata-target="categoriesDataList">
+                <% unless @categories.blank? %>
+                <% @categories.each do |category| %>
+                    <option value="<%= category.title %>"></option>
+                <% end %>
+                <% end %>
+                </datalist>
+                <%= form.text_field :name, aria: {label: "Наименование"}, class: "form-control", placeholder: "Наименование" %>
+                <%= form.text_field :price, aria: {label: "Цена"}, class: "form-control", placeholder: "Цена" %>
+            </div>
+        </div>
+
+        <script async src="https://telegram.org/js/telegram-widget.js?22" data-telegram-login="fpv_hoarder_bot" data-size="large" data-radius="10" data-onauth="onTelegramAuth(user)" data-request-access="write"></script>
+
+        <div class="col-auto" data-controller="tg--auth">
+            <%= form.submit "Отправить", class: "btn btn-primary mb-3", data: {"tg--auth-target": "tgUser"} %>
+        </div>
+    <% end %>
+
+    <p>✅ Содержание поста:</p>
+    <p>1&nbsp;фото или альбом, текст с&nbsp;описанием лотов, который интегрирован в&nbsp;описание фото. Если он&nbsp;не&nbsp;влезает, тогда отдельным постом сразу под фото. Цена каждого лота, город хэштегом (нижнее подчеркивание вместо пробелов: #Нижний_Новгород).</p>
+    <p>⚠️ Обязательно реальное фото товара. Запрещены скриншоты магазинов, а&nbsp;так&nbsp;же чужие фото аналогичного товара.  </p>
+    <p>⚠️ Все элементы поста обязательны! Цену можно не&nbsp;указывать только для услуг, например 3D&nbsp;печать. </p>
+    <p>⚠️ Обсуждать цену, доставку, задавать вопросы по&nbsp;товару можно только в&nbsp;личку продавцу (нажав на&nbsp;иконку пользователя).</p>
+    <p>Рекомендуем к&nbsp;товарам докладывать листочек с&nbsp;написанным ником в&nbsp;чате, чтобы защитить фотографии от&nbsp;копирования мошенниками. Листок расположить так, чтобы мошенникам было сложно переправить на&nbsp;нем никнейм.</p>
+    <p>✅ Выложить повторно товар (UP&nbsp;объявления) можно через 7&nbsp;дней либо цитатой, где можно указать, к&nbsp;примеру, скидку, либо создав новое объявление. </p>
+    <p>⚠️Агрессивное оформление поста крайне нежелательно. Смайлики, восклицательные знаки и&nbsp;жирный шрифт используйте по&nbsp;минимуму.</p>
+
+</div>

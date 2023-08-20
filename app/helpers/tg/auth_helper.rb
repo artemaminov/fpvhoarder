@@ -1,0 +1,2 @@
+module Tg::AuthHelper
+end
