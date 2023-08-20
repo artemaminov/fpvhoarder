@@ -2,7 +2,7 @@
 lock "~> 3.17.3"
 
 set :application, "fpvhoarder"
-set :repo_url, "git@github.com:artemaminov/fpvhoarder.ru.git"
+set :repo_url, "git@github.com:artemaminov/fpvhoarder.git"
 
 # Default branch is :master
 # ask :branch, `git rev-parse --abbrev-ref HEAD`.chomp

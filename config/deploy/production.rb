@@ -59,7 +59,7 @@ server '5.101.51.33', user: 'deploy', roles: %w{web app db}
 #     auth_methods: %w(publickey password)
 #     # password: "please use keys"
 #   }
-set :deploy_to, "/srv/apps/fpvhoarder.ru"
+set :deploy_to, "/srv/apps/weflydrones.ru"
 set :rbenv_type, :user
 set :branch, :main
 set :rbenv_ruby, File.read('.ruby-version').strip
