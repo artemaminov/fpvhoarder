@@ -164,6 +164,7 @@ GEM
       racc (~> 1.4)
     nokogiri (1.15.4-x86_64-linux)
       racc (~> 1.4)
+    pg (1.5.3)
     popper_js (2.11.7)
     public_suffix (5.0.3)
     puma (5.6.6)
@@ -226,8 +227,6 @@ GEM
       actionpack (>= 5.2)
       activesupport (>= 5.2)
       sprockets (>= 3.0.0)
-    sqlite3 (1.6.3-x86_64-darwin)
-    sqlite3 (1.6.3-x86_64-linux)
     sshkit (1.21.5)
       net-scp (>= 1.1.2)
       net-ssh (>= 2.8.0)
@@ -276,12 +275,12 @@ DEPENDENCIES
   faraday-multipart
   importmap-rails
   jbuilder
+  pg (~> 1.5)
   puma (~> 5.0)
   rails (~> 7.0.6)
   sassc-rails
   selenium-webdriver
   sprockets-rails
-  sqlite3 (~> 1.4)
   stimulus-rails
   turbo-rails
   tzinfo-data
