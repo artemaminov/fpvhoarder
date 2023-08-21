@@ -1,7 +1,7 @@
 module Tg
     class CommandController < ApplicationController
 
-        TOKEN = "6228282900:AAE1DUZ8xVSCl5loCwJcpnrptTXeqi29E9Q"
+        TOKEN = Rails.application.credentials.tg_token
         API_URL = "https://api.telegram.org/bot" + TOKEN
 
         COMMANDS = %w[getMe sendMessage sendPhoto sendMediaGroup deleteMessage]
