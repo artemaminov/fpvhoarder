@@ -3,9 +3,9 @@
 one:
   title: MyString
   price: 9.99
-  message: one
+  user: artem
 
 two:
   title: MyString
   price: 9.99
-  message: two
+  user: bogdan

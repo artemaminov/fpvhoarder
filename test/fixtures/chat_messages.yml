@@ -1,11 +1,11 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  user: artem
-  text: MyText
-  products: one
+  chat: one
+  message: one
+  message_tg_id: 234345
 
 two:
-  user: bogdan
-  text: MyText
-  products: two
+  chat: two
+  message: two
+  message_tg_id: 345345

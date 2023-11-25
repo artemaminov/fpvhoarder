@@ -1,44 +1,41 @@
-<div class="form">
-    <%= form_with url: "/command/sendMediaGroup",  class: "row g-3" do |form| %>
+<div class="form" data-controller="tg--auth">
+    <%= form_with model: @message, remote: true, html: { data: { action: "ajax:success->remote-form#onPostSuccess" } }, class: "row g-3" do |message_form| %>
         <div class="mb-3">
-            <%= form.label :uploads, "Фото", class: "form-label" %>
-            <%= form.file_field :uploads, multiple: true, class: "form-control" %>
+            <%= message_form.label :uploads, "Фото", class: "form-label" %>
+            <%= message_form.file_field :uploads, multiple: true, class: "form-control" %>
         </div>
 
         <div class="mb-3">
-            <%= form.label :text, "Текст обьявления", class: "form-label" %>
-            <%= form.text_area :text, rows: 3, class: "form-control" %>
+            <%= message_form.label :text, "Текст обьявления", class: "form-label" %>
+            <%= message_form.text_area :text, rows: 3, class: "form-control" %>
         </div>
 
         <div class="mb-3" data-controller="dadata">
-            <%= form.label :city, "Город", class: "form-label" %>
-            <%= form.text_field :city, placeholder: "Введите для поиска...", list: "citiesListOptions", data: {action: "dadata#request"}, class: "form-control" %>
+            <%= message_form.label :city, "Город", class: "form-label" %>
+            <%= message_form.text_field :city, placeholder: "Введите для поиска...", list: "citiesListOptions", data: {action: "dadata#request"}, class: "form-control" %>
             <datalist id="citiesListOptions" data-dadata-target="citiesDataList"></datalist>
         </div>
 
-        <div class="mb-3">
-            <%= form.label :goods, "Товары", class: "form-label" %>
-            <div class="input-group">
-                <span class="input-group-text">1</span>
-                <%= form.text_field :category, aria: {label: "Категория"}, placeholder: "Категория", list: "categoriesList", class: "form-control" %>
-                <datalist id="categoriesList" data-dadata-target="categoriesDataList">
-                <% unless @categories.blank? %>
-                <% @categories.each do |category| %>
-                    <option value="<%= category.title %>"></option>
-                <% end %>
-                <% end %>
-                </datalist>
-                <%= form.text_field :name, aria: {label: "Наименование"}, class: "form-control", placeholder: "Наименование" %>
-                <%= form.text_field :price, aria: {label: "Цена"}, class: "form-control", placeholder: "Цена" %>
+        <%= turbo_frame_tag "stuff" do %>
+        <%= message_form.fields_for :products do |products_form| %>
+        <div class="mb-3" data-controller="stuff">
+            <%= message_form.label :products, "Товары", class: "form-label" %>
+            <%= render partial: "stuff", locals: { products_form: products_form, categories: @categories } %>
+            <div class="d-grid mt-1">
+                <button class="btn btn-primary" type="button" data-action="stuff#add">Добавить товар</button>
             </div>
         </div>
+        <% end %>
+        <% end %>
 
         <script async src="https://telegram.org/js/telegram-widget.js?22" data-telegram-login="fpv_hoarder_bot" data-size="large" data-radius="10" data-onauth="onTelegramAuth(user)" data-request-access="write"></script>
 
-        <div class="col-auto" data-controller="tg--auth">
-            <%= form.hidden_field :tg_user_name, data: {"tg--auth-target": "tgUserName"} %>
-            <%= form.hidden_field :tg_user_id, data: {"tg--auth-target": "tgUserId"} %>
-            <%= form.submit "Отправить", class: "btn btn-primary mb-3", data: {"tg--auth-target": "tgUser"} %>
+        <div class="col-auto">
+            <%= message_form.fields_for :user do |message_user_form| %>
+                <%= message_user_form.hidden_field :tg_user_name, data: {"tg--auth-target": "tgUserName"} %>
+                <%= message_user_form.hidden_field :tg_user_id, data: {"tg--auth-target": "tgUserId"} %>
+            <% end %>
+            <%= message_form.submit "Отправить", class: "btn btn-primary mb-3", disabled: true, data: {"tg--auth-target": "signIn", "tg--auth-action": "save"} %>
         </div>
     <% end %>
 

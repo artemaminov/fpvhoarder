@@ -1,7 +1,9 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  name: MyString
+artem:
+  tg_user_name: MyString
+  tg_user_id: 3453546
 
-two:
-  name: MyString
+bogdan:
+  tg_user_name: MyString
+  tg_user_id: 45667
