@@ -5,5 +5,5 @@ Rails.application.routes.draw do
   root "home#index"
   post "/command/:command", to: "tg/command#send_to_tg"
   resources :messages
-  post "/signup", to: "users#create"
+  post "/signin", to: "users#create"
 end
