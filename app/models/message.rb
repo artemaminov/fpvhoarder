@@ -17,7 +17,7 @@ class Message < ApplicationRecord
     message = self.new
     message.build_user
     product = message.products.build
-    product.build_category
+    product.categories.build
     product.user = message.user
     message
   end

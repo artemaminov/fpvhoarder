@@ -4,8 +4,10 @@ one:
   title: MyString
   price: 9.99
   user: artem
+  categories: one
 
 two:
   title: MyString
   price: 9.99
   user: bogdan
+  categories: two
