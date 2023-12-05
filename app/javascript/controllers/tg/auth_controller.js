@@ -1,22 +1,23 @@
 import { Controller } from "@hotwired/stimulus"
 
 export default class extends Controller {
-    static targets = [ "tgUserName", "tgUserId", "signIn" ]
-
-    onTelegramAuth = async(user) => {
-        this.tgUserNameTarget.value = user.username
-        this.tgUserIdTarget.value = user.id
-        this.signInTarget.disabled = false
-
-        const respond = await fetch("/signin", {
+    onTelegramAuth = async (user) => {
+        const response = await fetch("/signin", {
             method: "POST",
+            credentials: 'same-origin',
+            headers: {
+                'X-CSRF_Token': document.head.querySelector("meta[name=csrf-token]")?.content,
+                "Content-Type": "application/json",
+                "Accept": "application/json"
+            },
             body: JSON.stringify({
-                user_name: user.username,
-                user_id: user.id
+                user: user
             })
         })
-
-        console.log(respond)
+        if (response.status === 200) {
+            window.Turbo.visit("/profile/", { frame: "main" })
+        }
+        console.log(response)
     }
 
     save = () => {
