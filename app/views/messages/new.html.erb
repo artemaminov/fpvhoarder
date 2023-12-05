@@ -1,0 +1,39 @@
+<%= turbo_frame_tag "main" do %>
+    <%= form_with model: @message, remote: true, html: { data: { action: "ajax:success->remote-form#onPostSuccess" } }, class: "row g-3" do |message_form| %>
+        <div class="mb-3">
+            <%= message_form.label :uploads, "Фото", class: "form-label" %>
+            <%= message_form.file_field :uploads, multiple: true, class: "form-control" %>
+        </div>
+
+        <div class="mb-3">
+            <%= message_form.label :text, "Текст обьявления", class: "form-label" %>
+            <%= message_form.text_area :text, rows: 3, class: "form-control" %>
+        </div>
+
+        <div class="mb-3" data-controller="dadata">
+            <%= message_form.label :city, "Город", class: "form-label" %>
+            <%= message_form.text_field :city, placeholder: "Введите для поиска...", list: "citiesListOptions", data: {action: "dadata#request"}, class: "form-control" %>
+            <datalist id="citiesListOptions" data-dadata-target="citiesDataList"></datalist>
+        </div>
+
+        <%= turbo_frame_tag "stuff" do %>
+        <%= message_form.fields_for :products do |products_form| %>
+        <div class="mb-3" data-controller="stuff">
+            <%= message_form.label :products, "Товары", class: "form-label" %>
+            <%= render partial: "stuff", locals: { products_form: products_form, categories: @categories } %>
+            <div class="d-grid mt-1">
+                <button class="btn btn-primary" type="button" data-action="stuff#add">Добавить товар</button>
+            </div>
+        </div>
+        <% end %>
+        <% end %>
+
+        <div class="col-auto">
+            <%= message_form.fields_for :user do |message_user_form| %>
+                <%= message_user_form.hidden_field :tg_user_name, data: {"tg--auth-target": "tgUserName"} %>
+                <%= message_user_form.hidden_field :tg_user_id, data: {"tg--auth-target": "tgUserId"} %>
+            <% end %>
+            <%= message_form.submit "Отправить", class: "btn btn-primary mb-3", data: {"tg--auth-target": "signIn", "tg--auth-action": "save"} %>
+        </div>
+    <% end %>
+<% end %>

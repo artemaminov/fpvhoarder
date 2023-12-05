@@ -1,0 +1,15 @@
+<div class="input-group" data-stuff-target="stuffInputs">
+    <span class="input-group-text">1</span>
+    <%= products_form.fields_for :category do |product_category_form| %>
+        <%= product_category_form.text_field :name, aria: {label: "Категория"}, placeholder: "Категория", list: "categoriesList", class: "form-control", data: { "stuff-target": "categoryInput"} %>
+        <datalist id="categoriesList" data-stuff-target="categoriesDataList">
+        <% unless categories.blank? %>
+            <% categories.each do |category| %>
+                <option value="<%= category.title %>"></option>
+            <% end %>
+        <% end %>
+        </datalist>
+    <% end %>
+    <%= products_form.text_field :title, aria: {label: "Наименование"}, class: "form-control", placeholder: "Наименование", data: { "stuff-target": "nameInput"} %>
+    <%= products_form.text_field :price, aria: {label: "Цена"}, class: "form-control", placeholder: "Цена", data: { "stuff-target": "priceInput"} %>
+</div>
